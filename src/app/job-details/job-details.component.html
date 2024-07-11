@@ -1,0 +1,28 @@
+<div>
+    <a [routerLink]="['/tabs/all-jobs']" routerLinkActive="active">
+        <img src="home.png" alt="Back"/>
+    </a>
+</div>
+@if(isFetching() &&  !error()) {
+  <p class="fallback-text">Loading job details...</p>
+}
+@if (error()) {
+  <p class="error-text">{{error()}}</p>
+}
+<div class="job-details">
+  <div class="job-header">
+    <img [src]="_jobDetails()?.companyLogo" alt="{{ _jobDetails()?.companyName }} logo" width="50" height="50">
+    <h1>{{ _jobDetails()?.companyName }} - {{ _jobDetails()?.title }}</h1>
+  </div>
+  <div>
+    <p>{{_jobDetails()?.types}}, {{_jobDetails()?.industries}}</p>
+  </div>
+  <div>
+    <p><b>Publish Date: </b>{{_jobDetails()?.publishDate}}</p>
+    <p><b>Location: </b>{{_jobDetails()?.location}}</p>
+    <p><b>Reference: </b>{{_jobDetails()?.reference}}</p>
+    <p><b>Description: </b></p>
+    <div [innerHTML]="sanitizedDescription">
+    </div>
+  </div>
+</div>

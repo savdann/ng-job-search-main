@@ -1,0 +1,31 @@
+ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .job-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 300px;
+    margin-right: 300px;
+    background-color: rgb(227, 234, 234);
+    border: 5px;
+    border-color: black;
+  }
+
+  .job-details {
+    margin-left: 5px;
+    text-align: left;
+  }
+
+  .job-details-info {
+    color:rgba(36, 53, 55, 0.947);
+  }
+
+.no-favorite-text {
+  font-size: 20px;
+  color: rgba(36, 53, 55, 0.947);
+  text-align: center;
+  margin: 30px 0;
+}
