@@ -1,0 +1,17 @@
+@if(favorites.length === 0) {
+  <p class="no-favorite-text">You have not selected any favorite jobs.</p>
+}
+<ul>
+    @for (job of favorites; track job.id) {
+      <li class="job-item">
+        <img [src]="job.companyLogo" alt="{{ job.companyName }} logo" width="50" height="50">
+        <div class="job-details">
+          <h4>{{ job.title }}</h4>
+          <div class="job-details-info">
+            <p><b>Company:</b> {{ job.companyName }}</p>
+            <p><b>Reference:</b> {{ job.reference }}</p>
+          </div>
+        </div>
+      </li>
+    }
+  </ul>

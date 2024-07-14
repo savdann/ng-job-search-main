@@ -1,0 +1,22 @@
+@if(isFetching() &&  !error()) {
+  <p class="fallback-text">Loading job details...</p>
+}
+@if (error()) {
+  <p class="error-text">{{error()}}</p>
+}
+<ul>
+  @for (job of jobs(); track job.id) {
+    <li class="job-item">
+      <img [src]="job.companyLogo" alt="{{ job.companyName }} logo" width="50" height="50">
+      <div class="job-details">
+       <a [routerLink]="['/tabs/job-details']" routerLinkActive="active" (click)="onJobDetails(job.id)"><h4>{{ job.title }}</h4></a>
+        <div class="job-details-info">
+          <p><b>Company:</b> {{ job.companyName }}</p>
+          <p><b>Reference:</b> {{ job.reference }}</p>
+        </div>
+      </div>
+      <span class="icon-star" [ngClass]="{'active': job.isFavorite }" [id]="'star-' + job.id" (click)="onCheckFavorite(job)"></span>
+    </li>
+  }
+</ul>
+

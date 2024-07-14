@@ -317,6 +317,8 @@ export const mockHandlers = [
     }
   }),
   http.get("/jobs", ({ request, params, cookies }) => {
+     // await new Promise(resolve => setTimeout(resolve, 3000)); // soll async sein
+    // return new HttpResponse("", { status: 500 });
     return HttpResponse.json(ALL_JOBS);
   }),
 ];
