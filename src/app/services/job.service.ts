@@ -28,8 +28,9 @@ export class JobService {
   loadAllJobs() {
     return this
       .fetchJobs('/jobs', 'Something went wrong fetching the jobs. Please try again later.')
-      .pipe(tap(() => {
-          const favs: Job[] = JSON.parse(localStorage.getItem('favJobs') || '[]');
+      .pipe(tap((jobs) => {
+        this._jobs.set(jobs);
+        const favs: Job[] = JSON.parse(localStorage.getItem('favJobs') || '[]');
           console.warn('favs', favs)
           favs.forEach(f => this.addJobToFavorites(f))
         }
