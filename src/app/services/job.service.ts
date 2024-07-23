@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import {catchError, Observable, tap, throwError} from 'rxjs';
 import { Job } from '../model/job.model';
 import { JobDetails } from "../model/details.model";
 import { toObservable } from "@angular/core/rxjs-interop";
@@ -13,7 +13,9 @@ export class JobService {
   private initialized = false;
   private _jobs = signal<Job[]>([]);
   private _favoriteJobs = computed<Job[]>(() => this._jobs().filter(j => j.isFavorite));
+  private _jobDetails = signal<JobDetails | undefined>(undefined);
   private jobId = signal(0);
+
   httpClient = inject(HttpClient);
 
   constructor() {
@@ -37,10 +39,19 @@ export class JobService {
       ));
   }
 
+  loadJobDetails(id: number) : Observable<JobDetails> {
+    return this.fetchJobDetails(`/jobs/${id}`, 'Something went wrong fetching the jobs. Please try again later.')
+      .pipe(tap((jobDetails) =>
+        this._jobDetails.set(jobDetails)));
+  }
+
   get jobs() {
     return this._jobs.asReadonly();
   }
 
+  get jobDetails() {
+    return this._jobDetails.asReadonly();
+  }
   get favoriteJobs() {
     return this._favoriteJobs;
   }
@@ -83,14 +94,10 @@ export class JobService {
     return this.jobId();
   }
 
-  loadJobDetails(id: number) : Observable<JobDetails> {
-    return this.fetchJobDetails(`/jobs/${id}`, 'Something went wrong fetching the jobs. Please try again later.');
-  }
-
   private fetchJobs(url: string, errorMessage: string): Observable<Job[]> {
     return this.httpClient
       .get<Job[]>(url)
-      .pipe(tap((jobs)=> this._jobs.set(jobs) ), catchError((error) => {
+      .pipe( catchError((error) => {
           console.log(error);
           return throwError(
             () =>

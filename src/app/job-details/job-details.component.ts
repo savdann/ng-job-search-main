@@ -18,16 +18,14 @@ export class JobDetailsComponent implements OnInit {
 
   isFetching = signal(false);
   error = signal('');
-  _jobDetails = signal<JobDetails | undefined>(undefined)
+  jobDetails = this.jobService.jobDetails;
   sanitizedDescription:SafeHtml = '';
-
 
   ngOnInit() {
     this.isFetching.set(true);
     const subscription = this.jobService.loadJobDetails(this.jobService.getJobId())
       .subscribe({
         next: (resData) => {
-          this._jobDetails.set(resData);
           this.sanitizedDescription = this.sanitizeHtml(resData.description);
         },
         error: (error: Error) => this.error.set(error.message),
