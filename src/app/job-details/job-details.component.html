@@ -11,16 +11,16 @@
 }
 <div class="job-details">
   <div class="job-header">
-    <img [src]="_jobDetails()?.companyLogo" alt="{{ _jobDetails()?.companyName }} logo" width="50" height="50">
-    <h1>{{ _jobDetails()?.companyName }} - {{ _jobDetails()?.title }}</h1>
+    <img [src]="jobDetails()?.companyLogo" alt="{{ jobDetails()?.companyName }} logo" width="50" height="50">
+    <h1>{{ jobDetails()?.companyName }} - {{ jobDetails()?.title }}</h1>
   </div>
   <div>
-    <p>{{_jobDetails()?.types}}, {{_jobDetails()?.industries}}</p>
+    <p>{{ jobDetails()?.types }}, {{ jobDetails()?.industries }}</p>
   </div>
   <div>
-    <p><b>Publish Date: </b>{{_jobDetails()?.publishDate}}</p>
-    <p><b>Location: </b>{{_jobDetails()?.location}}</p>
-    <p><b>Reference: </b>{{_jobDetails()?.reference}}</p>
+    <p><b>Publish Date: </b>{{ jobDetails()?.publishDate }}</p>
+    <p><b>Location: </b>{{ jobDetails()?.location }}</p>
+    <p><b>Reference: </b>{{ jobDetails()?.reference }}</p>
     <p><b>Description: </b></p>
     <div [innerHTML]="sanitizedDescription">
     </div>
